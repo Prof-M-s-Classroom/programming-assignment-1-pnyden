@@ -1,10 +1,10 @@
 import serial
 import time
-from temperature import Temperature
-from stack import CircularStack
+import Temperature
+import CircularStack
 
 # Define serial connection parameters
-COM_PORT = 'COM2'  # Update based on your system
+COM_PORT = 'COM3'  # Update based on your system
 BAUD_RATE = 9600
 
 
@@ -16,7 +16,7 @@ def read_from_arduino(serial_connection, stack):
         if serial_connection.in_waiting > 0:
             data = serial_connection.readline().decode('utf-8').strip()
 
-            if "Temperature" in data:  # Example: "Temperature: 25.6°C, Humidity: 46.0%"
+            if "Temperature" in data:  # Example: "Temperature: 25.6Â°C, Humidity: 46.0%"
                 parts = data.split(", ")
                 temp_value = float(parts[0].split(": ")[1][:-2])  # Extract temperature
                 humidity_value = float(parts[1].split(": ")[1][:-1])  # Extract humidity
@@ -31,7 +31,6 @@ def read_from_arduino(serial_connection, stack):
 
     except Exception as e:
         print(f"Error reading from Arduino: {e}")
-
 
 def main():
     # Initialize serial connection
